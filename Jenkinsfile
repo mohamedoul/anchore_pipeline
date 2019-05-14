@@ -1,5 +1,18 @@
 node {
     def app
+    def dockerfile
+    def anchorefile
+    def repotag
+  
+  try {
+    stage('Checkout') {
+      // Clone the git repository
+      checkout scm
+      def path = sh returnStdout: true, script: "pwd"
+      path = path.trim()
+      dockerfile = path + "/Dockerfile"
+      anchorefile = path + "/anchore_images"
+    }
 
     stage('Clone repository') {
         /* Let's make sure we have the repository cloned to our workspace */
