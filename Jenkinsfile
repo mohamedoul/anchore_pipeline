@@ -12,7 +12,7 @@ node {
       path = path.trim()
       dockerfile = path + "/Dockerfile"
       anchorefile = path + "/anchore_images"
-    }
+    }}
 
     stage('Clone repository') {
         /* Let's make sure we have the repository cloned to our workspace */
@@ -35,4 +35,4 @@ node {
   
     }
 }
-}
+
