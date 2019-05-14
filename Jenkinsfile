@@ -12,10 +12,11 @@ node {
          * docker build on the command line */
 
         app = docker.build("getintodevops/hellonode")
-        sh 'echo "image bhuilt succefffully"'
+        sh 'echo "image built succefffully"'
     }
 
-    stage('Anchore test') { 
+        stage('Anchore test') { 
+        sh 'echo  "start testing"'    
         writeFile file: anchorefile, text: inputConfig['dockerRegistryHostname'] + "/" + repotag + " " + dockerfile
         anchore name: anchorefile, engineurl: inputConfig['anchoreEngineUrl'], engineCredentialsId: inputConfig['anchoreEngineCredentials'], annotations: [[key: 'added-by', value: 'jenkins']]
   
