@@ -15,13 +15,15 @@ node {
         sh 'echo "image bhuilt succefffully"'
     }
 
-    stage('Test image') {
-        /* Ideally, we would run a test framework against our image.
-         * For this example, we're using a Volkswagen-type approach ;-) */   
+    stage('Parallel') {
+      parallel Test: {
+        app.inside {
+            sh 'echo "Dummy - tests passed"'
+        }
+      },
       Analyze: {
         writeFile file: anchorefile, text: inputConfig['dockerRegistryHostname'] + "/" + repotag + " " + dockerfile
         anchore name: anchorefile, engineurl: inputConfig['anchoreEngineUrl'], engineCredentialsId: inputConfig['anchoreEngineCredentials'], annotations: [[key: 'added-by', value: 'jenkins']]
       }
-     
     }
 }
