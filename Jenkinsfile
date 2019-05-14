@@ -15,7 +15,8 @@ node {
     }
 
         stage('Anchore test') { 
-        sh 'echo  "start testing"'    
+        sh 'echo  "start testing"'
+        anchore name: 'anchore_images'
         writeFile file: anchorefile, text: inputConfig['dockerRegistryHostname'] + "/" + repotag + " " + dockerfile
         anchore name: anchorefile, engineurl: inputConfig['anchoreEngineUrl'], engineCredentialsId: inputConfig['anchoreEngineCredentials'], annotations: [[key: 'added-by', value: 'jenkins']]
   
